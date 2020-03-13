@@ -48,13 +48,18 @@ public class MainActivity extends AppCompatActivity {
      * @param v Button that was clicked.
      */
     public void onClickOpenAddressButton(View v) {
-        // TODO (5) Store an address in a String
+        // completed (5) Store an address in a String
+        String s = "101 E 25th St, Baltimore, MD 21218";
+        // completed (6) Use Uri.Builder with the appropriate scheme and query to form the Uri for the address
+        Uri.Builder builder = new Uri.Builder();
+        builder.scheme("geo")
+                .path("0,0")
+                .appendQueryParameter("q", s);
+        Uri addressUri = builder.build();
 
-        // TODO (6) Use Uri.Builder with the appropriate scheme and query to form the Uri for the address
-
-        // TODO (7) Replace the Toast with a call to showMap, passing in the Uri from the previous step
-        Toast.makeText(this, "TODO: Open a map when this button is clicked", Toast.LENGTH_SHORT).show();
-    }
+        // completed (7) Replace the Toast with a call to showMap, passing in the Uri from the previous step
+        showMap(addressUri);
+     }
 
     /**
      * This method is called when the Share Text Content button is clicked. It will simply share
@@ -111,14 +116,16 @@ public class MainActivity extends AppCompatActivity {
         }
     }
 
-
-    // TODO (1) Create a method called showMap with a Uri as the single parameter
+    public void showMap(Uri geoLocation){
+    // completed (1) Create a method called showMap with a Uri as the single parameter
     // Do steps 2 - 4 within the showMap method
-        // TODO (2) Create an Intent with action type, Intent.ACTION_VIEW
+        // completed (2) Create an Intent with action type, Intent.ACTION_VIEW
+        Intent i =new Intent(Intent.ACTION_VIEW);
+        // completed (3) Set the data of the Intent to the Uri passed into this method
+        i.setData(geoLocation);
+        // completed (4) Verify that this Intent can be launched and then call startActivity
+        if (i.resolveActivity(getPackageManager()) != null){
+            startActivity(i);
+        }
 
-        // TODO (3) Set the data of the Intent to the Uri passed into this method
-
-        // TODO (4) Verify that this Intent can be launched and then call startActivity
-
-
-}
+        }}
